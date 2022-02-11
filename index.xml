@@ -1,1 +1,84 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>九原山</title><link>https://blog.ninehills.tech/</link><description>Recent content on 九原山</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 11 Feb 2022 16:40:13 +0800</lastBuildDate><atom:link href="https://blog.ninehills.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello world</title><link>https://blog.ninehills.tech/posts/my-first-post/</link><pubDate>Fri, 11 Feb 2022 16:40:13 +0800</pubDate><guid>https://blog.ninehills.tech/posts/my-first-post/</guid><description>&lt;p>Hello world!&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>九原山</title><link>https://blog.ninehills.tech/</link><description>Recent content on 九原山</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 11 Feb 2022 17:17:55 +0800</lastBuildDate><atom:link href="https://blog.ninehills.tech/index.xml" rel="self" type="application/rss+xml"/><item><title>小工具 p2pfile - 内网大文件P2P分发</title><link>https://blog.ninehills.tech/posts/p2pfile/</link><pubDate>Fri, 11 Feb 2022 17:17:55 +0800</pubDate><guid>https://blog.ninehills.tech/posts/p2pfile/</guid><description>&lt;p>Repo: &lt;a href="https://github.com/ninehills/p2pfile">https://github.com/ninehills/p2pfile&lt;/a>&lt;/p>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;h3 id="应用场景">应用场景&lt;/h3>
+&lt;ul>
+&lt;li>所有节点网络联通的环境下的文件分布式分发。&lt;/li>
+&lt;li>私有网络环境，和互联网隔离。&lt;/li>
+&lt;li>无文件加密传输需求&lt;/li>
+&lt;/ul>
+&lt;h3 id="设计限制">设计限制&lt;/h3>
+&lt;ul>
+&lt;li>DHT 网络中在这种环境下意义不大，所以不使用 DHT 网络，而是使用自带的集中 Tracker
+&lt;ul>
+&lt;li>在第一个测试版本使用纯 DHT 网络，发现其交换效率低于 Tracker.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>不需要 Daemon 常驻进程，只需要单个二进制文件。&lt;/li>
+&lt;li>无加密设计&lt;/li>
+&lt;li>只支持单个文件分发，不支持文件夹分发。&lt;/li>
+&lt;li>不支持 IPv6。&lt;/li>
+&lt;/ul>
+&lt;h3 id="设计目标">设计目标&lt;/h3>
+&lt;ul>
+&lt;li>提供私有网络环境下的文件分布式分发。&lt;/li>
+&lt;li>提供最简化的使用方法，一条命令。&lt;/li>
+&lt;/ul>
+&lt;h2 id="命令行设计">命令行设计&lt;/h2>
+&lt;p>做种：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">Creates and seeds a torrent from file paths. Usage:
+p2pfile serve &amp;lt;FILE_PATH&amp;gt;
+Usage:
+p2pfile serve [flags]
+Flags:
+--tracker-ip string Set tracker ip. (default: default route ip)
+--tracker-port int Set tracker port. (default: random port in port-range, See --port-range)
+--tracker-port-range string Set tracker random port range. (default: 42070-42099) (default &amp;#34;42070-42099&amp;#34;)
+-h, --help help for serve
+Global Flags:
+--config string config file (default is $HOME/.p2pfile.yaml)
+--debug Debug mode.
+--download-limit float Set download limit, MiB. (default: 0.0)
+--upload-limit float Set upload limit, MiB. (default: 0.0)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>下载：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">Download file from magnet uri. Usage:
+p2pfile download &amp;lt;MAGNET_URI&amp;gt;
+Usage:
+p2pfile download [flags]
+Flags:
+--seeding Seeding after download
+--seeding-max-time int Seeding after download finish max time in seconds. default: 600(10min) (default 600)
+--seeding-auto-stop Stop seeding after all nodes download finish. default: true (default true)
+--dir string Set download dir. (default: .)
+-h, --help help for download
+Global Flags:
+--config string config file (default is $HOME/.p2pfile.yaml)
+--debug Debug mode.
+--download-limit float Set download limit, MiB. (default: 0.0)
+--upload-limit float Set upload limit, MiB. (default: 0.0)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="实际测试">实际测试&lt;/h2>
+&lt;p>测试条件：&lt;/p>
+&lt;ul>
+&lt;li>100 Node，1 seeding， 99 downloading&lt;/li>
+&lt;li>云上 1Gb 网卡，但是测速在50-100MiB/s 之间&lt;/li>
+&lt;li>文件大小：10GiB&lt;/li>
+&lt;li>做种节点：1&lt;/li>
+&lt;/ul>
+&lt;p>测试结果：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>1GiB 文件使用 pscp 从做种节点 10 并发拷贝到所有下载节点&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">pscp -t &lt;span style="color:#ae81ff">0&lt;/span> -p &lt;span style="color:#ae81ff">10&lt;/span> -O StrictHostKeyChecking&lt;span style="color:#f92672">=&lt;/span>no -h hosts -l root -w &lt;span style="color:#e6db74">&amp;#34;ei@K5ac4i&amp;#34;&lt;/span> 1Gi /root/
+&lt;span style="color:#75715e"># 启动时间：16:08:10&lt;/span>
+&lt;span style="color:#75715e"># 完成时间：16:10:14&lt;/span>
+&lt;span style="color:#75715e"># 耗时：4min4s = 244s，单节点平均下载速度为4.2MB/s&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>1GiB 文件使用 P2P分发（没有计算做种时间和命令分发启动时间)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">14:59:24 - 14:59:54 30s，单节点平均下载速度为34.1MB/s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>10GiB 文件使用 P2P分发（没有计算做种时间和命令分发启动时间)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-txt" data-lang="txt">15:04:00 - 15:13:00 7min = 420s，单节点平均下载速度为24.4MB/s
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>发现还是有一定的长尾，比如在6分钟的时候，有的节点已经下载完成，但是还有的节点才33%。&lt;/p></description></item><item><title>Hello world</title><link>https://blog.ninehills.tech/posts/my-first-post/</link><pubDate>Fri, 11 Feb 2022 16:40:13 +0800</pubDate><guid>https://blog.ninehills.tech/posts/my-first-post/</guid><description>&lt;p>Hello world!&lt;/p></description></item></channel></rss>

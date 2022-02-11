@@ -1,0 +1,120 @@
+<!doctype html><html><head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<link rel="shortcut icon" href=https://blog.ninehills.tech/favicon.ico>
+<link rel=stylesheet href=/css/style.min.css>
+<title>小工具 p2pfile - 内网大文件P2P分发</title>
+</head>
+<body><header id=banner>
+<h2><a href=https://blog.ninehills.tech/>九原山</a></h2>
+<nav>
+<ul>
+</ul>
+</nav>
+</header>
+<main id=content>
+<article>
+<header id=post-header>
+<h1>小工具 p2pfile - 内网大文件P2P分发</h1>
+<div>
+<time>Feb 11, 2022</time>
+</div>
+</header><p>Repo: <a href=https://github.com/ninehills/p2pfile>https://github.com/ninehills/p2pfile</a></p>
+<h2 id=背景>背景</h2>
+<h3 id=应用场景>应用场景</h3>
+<ul>
+<li>所有节点网络联通的环境下的文件分布式分发。</li>
+<li>私有网络环境，和互联网隔离。</li>
+<li>无文件加密传输需求</li>
+</ul>
+<h3 id=设计限制>设计限制</h3>
+<ul>
+<li>DHT 网络中在这种环境下意义不大，所以不使用 DHT 网络，而是使用自带的集中 Tracker
+<ul>
+<li>在第一个测试版本使用纯 DHT 网络，发现其交换效率低于 Tracker.</li>
+</ul>
+</li>
+<li>不需要 Daemon 常驻进程，只需要单个二进制文件。</li>
+<li>无加密设计</li>
+<li>只支持单个文件分发，不支持文件夹分发。</li>
+<li>不支持 IPv6。</li>
+</ul>
+<h3 id=设计目标>设计目标</h3>
+<ul>
+<li>提供私有网络环境下的文件分布式分发。</li>
+<li>提供最简化的使用方法，一条命令。</li>
+</ul>
+<h2 id=命令行设计>命令行设计</h2>
+<p>做种：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-txt data-lang=txt>Creates and seeds a torrent from file paths. Usage:
+
+p2pfile serve &lt;FILE_PATH&gt;
+
+Usage:
+  p2pfile serve [flags]
+
+Flags:
+      --tracker-ip string           Set tracker ip. (default: default route ip)
+      --tracker-port int            Set tracker port. (default: random port in port-range,  See --port-range)
+      --tracker-port-range string   Set tracker random port range. (default: 42070-42099) (default &#34;42070-42099&#34;)
+  -h, --help                        help for serve
+
+Global Flags:
+      --config string   config file (default is $HOME/.p2pfile.yaml)
+      --debug           Debug mode.
+      --download-limit float   Set download limit, MiB. (default: 0.0)
+      --upload-limit float     Set upload limit, MiB. (default: 0.0)
+</code></pre></div><p>下载：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-txt data-lang=txt>Download file from magnet uri. Usage:
+
+p2pfile download &lt;MAGNET_URI&gt;
+
+Usage:
+  p2pfile download [flags]
+
+Flags:
+      --seeding                Seeding after download
+      --seeding-max-time int   Seeding after download finish max time in seconds. default: 600(10min) (default 600)
+      --seeding-auto-stop      Stop seeding after all nodes download finish. default: true (default true)
+      --dir string             Set download dir. (default: .)
+  -h, --help                   help for download
+
+Global Flags:
+      --config string   config file (default is $HOME/.p2pfile.yaml)
+      --debug           Debug mode.
+      --download-limit float   Set download limit, MiB. (default: 0.0)
+      --upload-limit float     Set upload limit, MiB. (default: 0.0)
+</code></pre></div><h2 id=实际测试>实际测试</h2>
+<p>测试条件：</p>
+<ul>
+<li>100 Node，1 seeding， 99 downloading</li>
+<li>云上 1Gb 网卡，但是测速在50-100MiB/s 之间</li>
+<li>文件大小：10GiB</li>
+<li>做种节点：1</li>
+</ul>
+<p>测试结果：</p>
+<ol>
+<li>
+<p>1GiB 文件使用 pscp 从做种节点 10 并发拷贝到所有下载节点</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>pscp -t <span style=color:#ae81ff>0</span> -p <span style=color:#ae81ff>10</span> -O StrictHostKeyChecking<span style=color:#f92672>=</span>no -h hosts -l root -w <span style=color:#e6db74>&#34;ei@K5ac4i&#34;</span> 1Gi /root/
+
+<span style=color:#75715e># 启动时间：16:08:10</span>
+<span style=color:#75715e># 完成时间：16:10:14</span>
+<span style=color:#75715e># 耗时：4min4s = 244s，单节点平均下载速度为4.2MB/s</span>
+</code></pre></div></li>
+<li>
+<p>1GiB 文件使用 P2P分发（没有计算做种时间和命令分发启动时间)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>14:59:24 - 14:59:54 30s，单节点平均下载速度为34.1MB/s
+</code></pre></div></li>
+<li>
+<p>10GiB 文件使用 P2P分发（没有计算做种时间和命令分发启动时间)</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-txt data-lang=txt>15:04:00 -  15:13:00 7min = 420s，单节点平均下载速度为24.4MB/s
+</code></pre></div></li>
+</ol>
+<p>发现还是有一定的长尾，比如在6分钟的时候，有的节点已经下载完成，但是还有的节点才33%。</p>
+</article>
+<script src=https://utteranc.es/client.js repo=ninehills/ninehills.github.io issue-term=pathname theme=github-light label=Comment crossorigin=anonymous async></script>
+</main><footer id=footer>
+</footer>
+</body>
+</html>
