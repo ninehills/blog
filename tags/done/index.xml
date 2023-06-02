@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>done on 九原山</title><link>https://ninehills.tech/tags/done/</link><description>Recent content in done on 九原山</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 02 Jun 2018 04:54:54 +0000</lastBuildDate><atom:link href="https://ninehills.tech/tags/done/index.xml" rel="self" type="application/rss+xml"/><item><title>SREcon18 Americas 我的推荐清单</title><link>https://ninehills.tech/posts/ninehills-ninehills.github.io-328713565-post-63/</link><pubDate>Sat, 02 Jun 2018 04:54:54 +0000</pubDate><guid>https://ninehills.tech/posts/ninehills-ninehills.github.io-328713565-post-63/</guid><description>SREcon18 Americas 最近放出了视频资料，我整理后，觉得值得看的 Talk 如下：
+听力不好的同学（比如我），推荐打开 Youtube 自动生成的英文字幕。
+部分主题没有被列入，选题和推荐指数纯属个人口味偏好，没有任何原因。 很多我都还来得及看，只是匆匆扫了几眼，难免有错误和疏漏，欢迎回复指出。
+1. [Workshop] Containers from Scratch ⭐️⭐️⭐️⭐️ Workshop 是动手环节，这个主题是让你从头实现容器，对理解容器的原理很有帮助。
+详细的动手步骤，请参考 https://github.com/Fewbytes/rubber-docker 动手前，可以先读下PPT: Linux Primitives 2. [Workshop] How to Build a Distributed System in 3 Hours ⭐️⭐️⭐️ 这个 Workshop 来自 Google，让你在三小时内设计一个 N+2 的多地域分布式系统，难度系数很高。建议学过 MIT 6.824 后再来看这个。
+3. [Workshop] Ansible for SRE Teams ⭐️⭐️⭐️ 就是一个 Ansible 实战指南，对 Ansible 感兴趣的可以了解下：https://github.com/Eronarn/deploying-applications-with-ansible。
+从我个人的角度，我觉得中小规模的公司，使用 Ansible 自动化是一个相当不错的选择。
+4. [Workshop]Tech Writing 101 for SREs ⭐️⭐️ 如何写技术文章，如故障报告、文档之类，参考 https://lisafc.github.io/tw101-reading/ ，不过这种文章得翻译下才行。
+5. [Workshop]Chaos Engineering Bootcamp ⭐️⭐️ Netflix 的 Chaos Engineering 也算是一个招牌了，就和 Baidu 的 AIOps 一样，有兴趣的可以看看。</description></item><item><title>[MIT 6.824 分布式系统课程] Lab2 Raft 心得</title><link>https://ninehills.tech/posts/ninehills-ninehills.github.io-300952316-post-62/</link><pubDate>Wed, 28 Feb 2018 09:36:26 +0000</pubDate><guid>https://ninehills.tech/posts/ninehills-ninehills.github.io-300952316-post-62/</guid><description>Raft struct 的成员 1 Raft 节点的角色，可以使用Go常量
+const ( Follower = iota // 0 Candidate // 1 Leader // 2 ) 2 使用Buffered Channel进行异步通信，比如等待心跳包结果等情况，我定义了如下Channel
+chanHeartbeat chan bool // 收到心跳 chanWinVote chan bool // 赢得选举 chanGrantVote chan bool // 获得选举票 chanApply chan ApplyMsg // 用来commit的channel 在Make()中需要初始化Channel为Buffered Channel
+rf.chanWinVote = make(chan bool, 10) rf.chanGrantVote = make(chan bool, 10) rf.chanHeartbeat = make(chan bool, 10) 3 Raft struct大部分成员都是论文的Figure 2的内容
+4 发送broadcastRequestVote后，需要进行voteCount 计数，以确定是否赢得Vote，所以 Raft struct需要增加voteCount成员
+协程冲突问题 Raft有如下成员来进行加锁</description></item><item><title>解决 Mac Docker.qcow2 文件过大的问题</title><link>https://ninehills.tech/posts/ninehills-ninehills.github.io-242567191-post-3/</link><pubDate>Thu, 13 Jul 2017 02:21:52 +0000</pubDate><guid>https://ninehills.tech/posts/ninehills-ninehills.github.io-242567191-post-3/</guid><description>背景：Docker on Mac 长时间运行后，Docker.qcow2就会变得很大，需要压缩
+参考：https://github.com/docker/for-mac/issues/371
+Author: yankcrime NB: You&amp;rsquo;ll need to install qemu via Homebrew as this process requires qemu-img to recompress the qcow2 disk image.
+$ cd ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux
+$ mv Docker.qcow2 Docker.qcow2.original
+$ du -hs Docker.qcow2.original
+12G Docker.qcow2.original
+$ qemu-img convert -O qcow2 Docker.qcow2.original Docker.qcow2
+$ rm Docker.qcow2.original
+$ du -hs Docker.qcow2
+772M Docker.qcow2 除此之外，还有一个根本解决问题的方法，就是不要在虚拟机内保存任何数据，全部使用Volume，这样当文件过大时，删除文件，重启Docker后，重新创建容器即可。
+回复也记录下常用的一些容器的启动，用于备忘：
+# jupyter with spark
+docker run -p 8888:8888 -d -v /Users/baidu/WorkSpace/Jupyter:/home/jovyan/work --name all-spark-notebook jupyter/all-spark-notebook
+# jupyter with go
+docker run -p 8887:8888 -d -v /Users/baidu/WorkSpace/Jupyter:/go/workspace --name go-notebook dwhitena/gophernotes jupyter notebook --no-browser --ip=0.</description></item></channel></rss>
