@@ -2,7 +2,9 @@
 
 ## Posts
 
-- #92 [大语言模型（LLM）微调技术笔记](https://github.com/ninehills/ninehills.github.io/issues/92) 2023-06-02
+- #94 [值得关注的中文模型](https://github.com/ninehills/ninehills.github.io/issues/94) 2023-06-21
+- #93 [WSL2 使用 Clash for Windows 的 TUN 模式全局访问外网](https://github.com/ninehills/ninehills.github.io/issues/93) 2023-06-16
+- #92 [大语言模型（LLM）微调技术笔记](https://github.com/ninehills/ninehills.github.io/issues/92) 2023-06-19
 - #88 [小工具 p2pfile 可以快速的用于内网大文件分发](https://github.com/ninehills/ninehills.github.io/issues/88) 2022-11-14
 - #78 [《植物大战僵尸》PC/Mac版存档修改](https://github.com/ninehills/ninehills.github.io/issues/78) 2020-05-03
 - #77 [Kubernetes 基于 Namespace 的物理队列实现](https://github.com/ninehills/ninehills.github.io/issues/77) 2020-05-07
