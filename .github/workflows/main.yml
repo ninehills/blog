@@ -6,6 +6,8 @@ jobs:
   generate:
     name: Generate blog
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Check out repo's default branch
         uses: actions/checkout@v3
