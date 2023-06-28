@@ -1,0 +1,23 @@
+on: workflow_dispatch
+permissions:
+  contents: read
+  issues: read
+jobs:
+  generate:
+    name: Generate blog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo's default branch
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.4
+        with:
+          python-version: 3.10
+      - name: Run generate.py
+        run: |
+          python3 generate.py
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5.0.2
+        with:
+          # Delete the `branch` when closing pull requests, and when undeleted after merging. Recommend `true`.
+          delete-branch: true
