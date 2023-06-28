@@ -1,4 +1,7 @@
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited, deleted, labeled, unlabeled]
 permissions:
   contents: write
   pull-requests: write
