@@ -1,7 +1,7 @@
 # 九原山
 ## Posts
 - #100 [实现基于 Github Issues 的博客](articles/100.md) 2023-06-28 `blog`
-- #97 [大语言模型（LLM）学习路径和资料汇总](articles/97.md) 2023-06-28 `blog`
+- #97 [大语言模型（LLM）学习路径和资料汇总](articles/97.md) 2023-06-30 `blog`
 - #96 [中文模型 C-Eval 评测结果简单小评测](articles/96.md) 2023-06-27 `blog`
 - #95 [大语言模型（LLM）后训练数据准备相关笔记](articles/95.md) 2023-06-27 `blog`
 - #94 [值得关注的对中文支持较好的开源模型](articles/94.md) 2023-06-25 `blog`
