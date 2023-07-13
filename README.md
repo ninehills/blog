@@ -3,8 +3,8 @@
 - #100 [实现基于 Github Issues 的博客](articles/100.md) 2023-06-28 `blog`
 - #97 [大语言模型（LLM）学习路径和资料汇总](articles/97.md) 2023-06-30 `blog`
 - #96 [中文模型 C-Eval 评测结果简单小评测](articles/96.md) 2023-06-27 `blog`
-- #95 [大语言模型（LLM）后训练数据准备相关笔记](articles/95.md) 2023-06-27 `blog`
-- #94 [值得关注的对中文支持较好的开源模型](articles/94.md) 2023-06-25 `blog`
+- #95 [大语言模型（LLM）后训练数据准备相关笔记](articles/95.md) 2023-07-09 `blog`
+- #94 [值得关注的对中文支持较好的开源模型](articles/94.md) 2023-07-13 `blog`
 - #92 [大语言模型（LLM）微调技术笔记](articles/92.md) 2023-06-22 `blog`
 - #88 [小工具 p2pfile 可以快速的用于内网大文件分发](articles/88.md) 2022-11-14 `blog`
 - #78 [《植物大战僵尸》PC/Mac版存档修改](articles/78.md) 2020-05-03 `blog`
