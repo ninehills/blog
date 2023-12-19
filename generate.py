@@ -29,7 +29,7 @@ with open("README.md", "w") as f:
 ## Posts\n""")
     for issue in issues:
         link = f"{ARTICLES_DIR}/{issue['number']}.md"
-        updated = issue['updatedAt'].split('T')[0]
+        updated = issue['createdAt'].split('T')[0]
         labels = " ".join([f"`{label['name']}`" for label in issue['labels']])
         f.write(f"- #{issue['number']} [{issue['title']}]({link}) {updated} {labels}\n")
 
@@ -44,7 +44,6 @@ for issue in issues:
         f.write(f"> Author: **{issue['author']['login']}**  \n")
         f.write(f"> Labels: **{' '.join([label['name'] for label in issue['labels']])}**  \n")
         f.write(f"> Created: **{issue['createdAt']}**  \n")
-        f.write(f"> Updated: **{issue['updatedAt']}**  \n")
         f.write(f"> Link and comments: <{issue['url']}>  \n")
         f.write("\n\n")
         f.write(issue['body'])
