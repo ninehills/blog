@@ -15,7 +15,7 @@ TIMEOUT = 20
 
 ## 1. find all issues with specific labels
 issues_json = subprocess.check_output(
-    "gh issue list --state open --json title,url,author,number,labels,updatedAt",
+    "gh issue list --state open --json title,url,author,number,labels,updatedAt,createdAt",
     shell=True, timeout=TIMEOUT)
 logging.info("issues_json: %s", issues_json)
 
