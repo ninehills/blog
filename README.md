@@ -1,21 +1,22 @@
 # 九原山
 ## Posts
+- #109 [Gemini Pro Vision 作为 表格 OCR 解决方案的简单测试](articles/109.md) 2023-12-20 `blog`
 - #107 [大语言模型（LLM）推理性能优化以及推理框架、后端的评测](articles/107.md) 2023-12-19 `blog`
-- #104 [Embedding 模型在 RAG 场景下的评估和微调](articles/104.md) 2023-11-23 `blog`
+- #104 [Embedding 模型在 RAG 场景下的评估和微调](articles/104.md) 2023-11-03 `blog`
 - #100 [实现基于 Github Issues 的博客](articles/100.md) 2023-06-28 `blog`
-- #97 [大语言模型（LLM）学习路径和资料汇总](articles/97.md) 2023-12-14 `blog`
+- #97 [大语言模型（LLM）学习路径和资料汇总](articles/97.md) 2023-06-27 `blog`
 - #96 [中文模型 C-Eval 评测结果简单小评测](articles/96.md) 2023-06-27 `blog`
-- #95 [大语言模型（LLM）后训练数据准备相关笔记](articles/95.md) 2023-11-21 `blog`
-- #94 [值得关注的对中文支持较好的开源模型](articles/94.md) 2023-07-13 `blog`
-- #92 [大语言模型（LLM）微调技术笔记](articles/92.md) 2023-10-31 `blog`
-- #88 [小工具 p2pfile 可以快速的用于内网大文件分发](articles/88.md) 2022-11-14 `blog`
+- #95 [大语言模型（LLM）后训练数据准备相关笔记](articles/95.md) 2023-06-26 `blog`
+- #94 [值得关注的对中文支持较好的开源模型](articles/94.md) 2023-06-21 `blog`
+- #92 [大语言模型（LLM）微调技术笔记](articles/92.md) 2023-05-12 `blog`
+- #88 [小工具 p2pfile 可以快速的用于内网大文件分发](articles/88.md) 2022-01-29 `blog`
 - #78 [《植物大战僵尸》PC/Mac版存档修改](articles/78.md) 2020-05-03 `blog`
-- #77 [Kubernetes 基于 Namespace 的物理队列实现](articles/77.md) 2020-05-07 `blog`
+- #77 [Kubernetes 基于 Namespace 的物理队列实现](articles/77.md) 2020-04-10 `blog`
 - #76 [SRE 技术简报 20200310](articles/76.md) 2020-03-20 `blog`
 - #75 [游戏 《天命奇御》](articles/75.md) 2020-01-14 `blog`
-- #74 [SRE 技术简报 20200114](articles/74.md) 2020-01-15 `blog`
+- #74 [SRE 技术简报 20200114](articles/74.md) 2020-01-14 `blog`
 - #73 [SRE 技术简报 20191222](articles/73.md) 2019-12-22 `blog`
 - #72 [SRE 技术简报 20191127](articles/72.md) 2019-11-27 `blog`
-- #63 [SREcon18 Americas 我的推荐清单](articles/63.md) 2018-06-06 `blog` `done`
-- #62 [[MIT 6.824 分布式系统课程] Lab2 Raft 心得](articles/62.md) 2019-02-15 `blog` `done`
-- #3 [解决 Mac Docker.qcow2 文件过大的问题](articles/3.md) 2017-11-13 `blog` `done`
+- #63 [SREcon18 Americas 我的推荐清单](articles/63.md) 2018-06-02 `blog` `done`
+- #62 [[MIT 6.824 分布式系统课程] Lab2 Raft 心得](articles/62.md) 2018-02-28 `blog` `done`
+- #3 [解决 Mac Docker.qcow2 文件过大的问题](articles/3.md) 2017-07-13 `blog` `done`
