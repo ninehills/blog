@@ -1,5 +1,6 @@
 # 九原山
 ## Posts
+- #111 [中文 Emebedding & Reranker 模型选型](articles/111.md) 2023-12-28 `blog`
 - #109 [Gemini Pro Vision 作为 表格 OCR 解决方案的简单测试](articles/109.md) 2023-12-20 `blog`
 - #107 [大语言模型（LLM）推理性能优化以及推理框架、后端的评测](articles/107.md) 2023-12-19 `blog`
 - #104 [Embedding 模型在 RAG 场景下的评估和微调](articles/104.md) 2023-11-03 `blog`
