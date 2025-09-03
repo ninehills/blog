@@ -1,5 +1,6 @@
 # 九原山
 ## Posts
+- #133 [免费 GPU 或廉价算力](articles/133.md) 2025-09-03 `blog`
 - #129 [大语言模型高质量数据集汇总](articles/129.md) 2025-07-10 `blog`
 - #128 [AI Tech Blog](articles/128.md) 2025-07-08 `blog`
 - #121 [DeepSeek R1 阅读清单](articles/121.md) 2025-01-29 `blog`
