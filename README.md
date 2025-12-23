@@ -27,5 +27,3 @@
 - #73 [SRE 技术简报 20191222](articles/73.md) 2019-12-22 `blog`
 - #72 [SRE 技术简报 20191127](articles/72.md) 2019-11-27 `blog`
 - #63 [SREcon18 Americas 我的推荐清单](articles/63.md) 2018-06-02 `blog` `done`
-- #62 [[MIT 6.824 分布式系统课程] Lab2 Raft 心得](articles/62.md) 2018-02-28 `blog` `done`
-- #3 [解决 Mac Docker.qcow2 文件过大的问题](articles/3.md) 2017-07-13 `blog` `done`
