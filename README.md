@@ -1,5 +1,6 @@
 # 九原山
 ## Posts
+- #148 [Tinker RL 测试（含代码库）](articles/148.md) 2025-12-25 `blog`
 - #143 [LLM 量化（GPTQ、GGUF）实战以及效果和推理性能实测](articles/143.md) 2025-09-22 `blog`
 - #141 [使用Coding Agent 作为通用智能体完成 DeepResearch 任务](articles/141.md) 2025-09-16 `blog`
 - #137 [不同硬件和推理引擎模型输出的精度差异](articles/137.md) 2025-09-09 `blog`
@@ -27,5 +28,3 @@
 - #73 [SRE 技术简报 20191222](articles/73.md) 2019-12-22 `blog`
 - #72 [SRE 技术简报 20191127](articles/72.md) 2019-11-27 `blog`
 - #63 [SREcon18 Americas 我的推荐清单](articles/63.md) 2018-06-02 `blog` `done`
-- #62 [[MIT 6.824 分布式系统课程] Lab2 Raft 心得](articles/62.md) 2018-02-28 `blog` `done`
-- #3 [解决 Mac Docker.qcow2 文件过大的问题](articles/3.md) 2017-07-13 `blog` `done`
