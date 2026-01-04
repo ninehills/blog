@@ -28,4 +28,3 @@
 - #74 [SRE 技术简报 20200114](articles/74.md) 2020-01-14 `blog`
 - #73 [SRE 技术简报 20191222](articles/73.md) 2019-12-22 `blog`
 - #72 [SRE 技术简报 20191127](articles/72.md) 2019-11-27 `blog`
-- #63 [SREcon18 Americas 我的推荐清单](articles/63.md) 2018-06-02 `blog` `done`
