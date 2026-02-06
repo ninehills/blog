@@ -1,5 +1,6 @@
 # 九原山
 ## Posts
+- #154 [OpenClaw 思考](articles/154.md) 2026-02-05 `blog`
 - #150 [自主 Agent / 上下文工程资料索引](articles/150.md) 2026-01-04 `blog`
 - #148 [Tinker RL 测试（含代码库）](articles/148.md) 2025-12-25 `blog`
 - #143 [LLM 量化（GPTQ、GGUF）实战以及效果和推理性能实测](articles/143.md) 2025-09-22 `blog`
@@ -28,4 +29,3 @@
 - #74 [SRE 技术简报 20200114](articles/74.md) 2020-01-14 `blog`
 - #73 [SRE 技术简报 20191222](articles/73.md) 2019-12-22 `blog`
 - #72 [SRE 技术简报 20191127](articles/72.md) 2019-11-27 `blog`
-- #63 [SREcon18 Americas 我的推荐清单](articles/63.md) 2018-06-02 `blog` `done`
