@@ -26,6 +26,21 @@ def clean_body(body: str) -> str:
     return body.strip().replace("\r\n", "\n")
 
 
+def extract_description(body: str, fallback: str, max_chars: int = 120) -> str:
+    """Extract a short description from the issue body (first meaningful paragraph)."""
+    lines = body.strip().split('\n')
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith('#') or stripped.startswith('![') or stripped.startswith('>'):
+            continue
+        stripped = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', stripped)
+        stripped = re.sub(r'[*_`~]', '', stripped)
+        if len(stripped) > max_chars:
+            stripped = stripped[:max_chars-3] + '...'
+        return stripped
+    return fallback
+
+
 ## 1. find all issues with specific labels
 issues_json = subprocess.check_output(
     "gh issue list --state open --json title,url,author,number,labels,updatedAt,createdAt",
@@ -67,12 +82,16 @@ for issue in issues:
     tags = [label['name'] for label in issue_data['labels']
             if label['name'] != 'blog']
 
+    description = extract_description(issue_data.get('body', ''), issue_data['title'])
+
     front_matter = f"""---
 layout: post
 title: "{issue_data['title']}"
+description: "{description}"
 author: {issue_data['author']['login']}
 date: {date}
 comments_url: {issue_data['url']}
+banner: "/assets/images/banners/{issue_data['number']}.png"
 """
     if tags:
         front_matter += f"tags: [{', '.join(tags)}]\n"
