@@ -15,17 +15,14 @@ TIMEOUT = 20
 
 
 def slugify(title: str, number: int) -> str:
-    """Generate a URL-safe slug from an issue title and number."""
     return str(number)
 
 
 def date_from_iso(dt: str) -> str:
-    """Extract YYYY-MM-DD from ISO timestamp."""
     return dt.split("T")[0]
 
 
 def clean_body(body: str) -> str:
-    """Remove leading/trailing whitespace, normalize line endings."""
     return body.strip().replace("\r\n", "\n")
 
 
@@ -80,9 +77,11 @@ comments_url: {issue_data['url']}
     if tags:
         front_matter += f"tags: [{', '.join(tags)}]\n"
 
+    # Metadata blockquote placed at the BOTTOM so excerpts show clean content
     meta = (
+        f"\n\n---\n\n"
         f"> 原文发布于 [GitHub Issue #{issue_data['number']}]({issue_data['url']})  \n"
-        f"> 创建于 {issue_data['createdAt']}，更新于 {issue_data['updatedAt']}\n\n"
+        f"> 创建于 {issue_data['createdAt']}，更新于 {issue_data['updatedAt']}\n"
     )
 
     front_matter += "---\n\n"
@@ -90,8 +89,8 @@ comments_url: {issue_data['url']}
 
     with open(filepath, "w") as f:
         f.write(front_matter)
-        f.write(meta)
         f.write(body)
+        f.write(meta)
         f.write("\n")
 
     logging.info("wrote: %s", filepath)

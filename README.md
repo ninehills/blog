@@ -34,7 +34,3 @@
 - #75 [游戏 《天命奇御》](https://github.com/ninehills/blog/issues/75) 2020-01-14 `blog`
 - #74 [SRE 技术简报 20200114](https://github.com/ninehills/blog/issues/74) 2020-01-14 `blog`
 - #73 [SRE 技术简报 20191222](https://github.com/ninehills/blog/issues/73) 2019-12-22 `blog`
-- #72 [SRE 技术简报 20191127](https://github.com/ninehills/blog/issues/72) 2019-11-27 `blog`
-- #63 [SREcon18 Americas 我的推荐清单](https://github.com/ninehills/blog/issues/63) 2018-06-02 `blog` `done`
-- #62 [[MIT 6.824 分布式系统课程] Lab2 Raft 心得](https://github.com/ninehills/blog/issues/62) 2018-02-28 `blog` `done`
-- #3 [解决 Mac Docker.qcow2 文件过大的问题](https://github.com/ninehills/blog/issues/3) 2017-07-13 `blog` `done`
