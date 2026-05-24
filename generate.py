@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-import sys
+import re
 import json
 import logging
 import subprocess
@@ -9,9 +9,25 @@ import subprocess
 logging.basicConfig(level=logging.INFO)
 
 GH = "gh"
-ARTICLES_DIR = "articles"
+POSTS_DIR = "_posts"
 LABELS = set(["blog"])
 TIMEOUT = 20
+
+
+def slugify(title: str, number: int) -> str:
+    """Generate a URL-safe slug from an issue title and number."""
+    return str(number)
+
+
+def date_from_iso(dt: str) -> str:
+    """Extract YYYY-MM-DD from ISO timestamp."""
+    return dt.split("T")[0]
+
+
+def clean_body(body: str) -> str:
+    """Remove leading/trailing whitespace, normalize line endings."""
+    return body.strip().replace("\r\n", "\n")
+
 
 ## 1. find all issues with specific labels
 issues_json = subprocess.check_output(
@@ -20,30 +36,64 @@ issues_json = subprocess.check_output(
 logging.info("issues_json: %s", issues_json)
 
 issues = json.loads(issues_json)
-issues = [issue for issue in issues if LABELS.intersection(set([label["name"] for label in issue["labels"]]))]
+issues = [issue for issue in issues if LABELS.intersection(
+    set([label["name"] for label in issue["labels"]]))]
 logging.info("issues with filter: %s", issues)
 
-## 2. generate README.md
+## 2. Generate README.md (for GitHub repo display)
 with open("README.md", "w") as f:
-    f.write("""# 九原山
-## Posts\n""")
+    f.write("# 九原山\n\n")
+    f.write("技术笔记与思考。关注大语言模型、AI Agent、推理优化、SRE 等领域。\n\n")
+    f.write("> 访问 [ninehills.tech](https://ninehills.tech) 查看博客。\n\n")
+    f.write("## Posts\n\n")
     for issue in issues:
-        link = f"{ARTICLES_DIR}/{issue['number']}.md"
-        updated = issue['createdAt'].split('T')[0]
+        date = date_from_iso(issue['createdAt'])
         labels = " ".join([f"`{label['name']}`" for label in issue['labels']])
-        f.write(f"- #{issue['number']} [{issue['title']}]({link}) {updated} {labels}\n")
+        f.write(
+            f"- #{issue['number']} [{issue['title']}]({issue['url']}) {date} {labels}\n")
 
-## 3. generate articles
+## 3. Generate Jekyll posts in _posts/
+os.makedirs(POSTS_DIR, exist_ok=True)
+
 for issue in issues:
-    r = subprocess.check_output(f"gh issue view {issue['number']} --json title,url,author,number,labels,createdAt,updatedAt,body",
-                       shell=True, timeout=TIMEOUT)
-    issue = json.loads(r)
-    logging.info("process issue: %s", issue)
-    with open(f"{ARTICLES_DIR}/{issue['number']}.md", "w") as f:
-        f.write(f"# {issue['title']}\n\n")
-        f.write(f"> Author: **{issue['author']['login']}**  \n")
-        f.write(f"> Labels: **{' '.join([label['name'] for label in issue['labels']])}**  \n")
-        f.write(f"> Created: **{issue['createdAt']}**  \n")
-        f.write(f"> Link and comments: <{issue['url']}>  \n")
-        f.write("\n\n")
-        f.write(issue['body'])
+    r = subprocess.check_output(
+        f"gh issue view {issue['number']} --json title,url,author,number,labels,createdAt,updatedAt,body",
+        shell=True, timeout=TIMEOUT)
+    issue_data = json.loads(r)
+    logging.info("process issue: %s", issue_data)
+
+    date = date_from_iso(issue_data['createdAt'])
+    slug = slugify(issue_data['title'], issue_data['number'])
+    filename = f"{date}-{slug}.md"
+    filepath = os.path.join(POSTS_DIR, filename)
+
+    tags = [label['name'] for label in issue_data['labels']
+            if label['name'] != 'blog']
+
+    front_matter = f"""---
+layout: post
+title: "{issue_data['title']}"
+author: {issue_data['author']['login']}
+date: {date}
+comments_url: {issue_data['url']}
+"""
+    if tags:
+        front_matter += f"tags: [{', '.join(tags)}]\n"
+
+    meta = (
+        f"> 原文发布于 [GitHub Issue #{issue_data['number']}]({issue_data['url']})  \n"
+        f"> 创建于 {issue_data['createdAt']}，更新于 {issue_data['updatedAt']}\n\n"
+    )
+
+    front_matter += "---\n\n"
+    body = clean_body(issue_data['body'])
+
+    with open(filepath, "w") as f:
+        f.write(front_matter)
+        f.write(meta)
+        f.write(body)
+        f.write("\n")
+
+    logging.info("wrote: %s", filepath)
+
+logging.info("Done. Generated %d posts.", len(issues))

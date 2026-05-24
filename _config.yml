@@ -1,0 +1,46 @@
+# ── Site Settings ──
+title: 九原山
+email: ninehills@users.noreply.github.com
+author: ninehills
+description: >-
+  技术笔记与思考。关注大语言模型、AI Agent、推理优化、SRE 等领域。
+baseurl: ""
+url: "https://ninehills.tech"
+
+# ── Permalink ──
+permalink: /:year/:month/:day/:slug/
+
+# ── Theme ──
+remote_theme: jeffreytse/jekyll-theme-yat
+
+# ── YAT Theme Settings ──
+yat:
+  date_format: "%Y-%m-%d"
+  lang: "zh-CN"
+  night_mode: "auto"
+  header_transparent: false
+
+# ── YAT Homepage defaults ──
+defaults:
+  home:
+    heading: "九原山"
+    subheading: "技术笔记与思考"
+
+# ── Plugins ──
+plugins:
+  - jekyll-remote-theme
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# ── Build ──
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+exclude:
+  - generate.py
+  - articles/
+  - README.md
+  - Gemfile.lock
+  - vendor/
