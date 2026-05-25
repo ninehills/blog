@@ -100,7 +100,6 @@ description: "{description}"
 author: {issue_data['author']['login']}
 date: {date}
 comments_url: {issue_data['url']}
-banner: "/assets/images/banners/{issue_data['number']}.png"
 """
     if tags:
         front_matter += f"tags: [{', '.join(tags)}]\n"
