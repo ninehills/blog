@@ -1,0 +1,8 @@
+---
+---
+
+// Minimal homepage: show only post titles
+.post-list .post-image,
+.post-list .post-excerpt {
+  display: none;
+}
