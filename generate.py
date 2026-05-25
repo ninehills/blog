@@ -82,7 +82,16 @@ for issue in issues:
     tags = [label['name'] for label in issue_data['labels']
             if label['name'] != 'blog']
 
-    description = extract_description(issue_data.get('body', ''), issue_data['title'])
+    # Preserve existing description if the post already has one (not auto-generated)
+    existing_desc = None
+    if os.path.exists(filepath):
+        with open(filepath) as f:
+            old = f.read()
+        m = re.search(r'^description:\s*"(.*?)"', old, re.MULTILINE)
+        if m:
+            existing_desc = m.group(1)
+    
+    description = existing_desc or extract_description(issue_data.get('body', ''), issue_data['title'])
 
     front_matter = f"""---
 layout: post
