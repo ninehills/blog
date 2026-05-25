@@ -6,6 +6,7 @@
 
 ## Posts
 
+- #162 [Pi Agent 个人配置](https://github.com/ninehills/blog/issues/162) 2026-05-15 `blog`
 - #154 [OpenClaw 思考](https://github.com/ninehills/blog/issues/154) 2026-02-05 `blog`
 - #150 [自主 Agent / 上下文工程资料索引](https://github.com/ninehills/blog/issues/150) 2026-01-04 `blog`
 - #148 [Tinker RL 测试（含代码库）](https://github.com/ninehills/blog/issues/148) 2025-12-25 `blog`
