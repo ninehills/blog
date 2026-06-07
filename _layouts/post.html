@@ -11,7 +11,7 @@ layout: default
 {%- endif -%}
 
 <div class="post-layout-container">
-  <!-- Sidebar -->
+  <!-- Desktop Sidebar (Sticky in the left margin area) -->
   <aside class="post-sidebar">
     <a href="{{ relative_prefix }}" class="back-link">
       <svg class="back-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -47,15 +47,24 @@ layout: default
     </div>
   </aside>
 
-  <!-- Main Content Column -->
+  <!-- Main Content Column (Perfectly Centered) -->
   <article class="post-main">
     <header class="post-header-inline">
+      <!-- Mobile Back Link (Visible under 1140px) -->
+      <a href="{{ relative_prefix }}" class="back-link-mobile">
+        <svg class="back-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>所有文章</span>
+      </a>
+      
       <h1 class="post-title">{{ page.title | escape }}</h1>
       {% if page.description %}
         <p class="post-description">{{ page.description | escape }}</p>
       {% endif %}
       
-      <!-- Mobile Metadata (visible only on mobile/tablet) -->
+      <!-- Mobile Metadata (visible only when desktop sidebar is hidden) -->
       <div class="post-meta-mobile">
         <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
         {% if page.author %}

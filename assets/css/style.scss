@@ -201,35 +201,32 @@ body {
   }
 }
 
-/* Post Layout Container (Two-column Desktop grid) */
+/* Post Layout Container (Perfected Centered Area) */
 .post-layout-container {
-  display: flex;
-  gap: 3.5rem;
-  max-width: 960px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 0 1.5rem;
   position: relative;
   
   @media (max-width: 992px) {
-    flex-direction: column;
-    gap: 0;
     padding: 0;
   }
 }
 
-/* Sidebar Styling */
+/* Sidebar Styling (Sticky in the left margin area using negative float) */
 .post-sidebar {
-  width: 180px;
-  flex-shrink: 0;
   position: sticky;
   top: 7rem;
+  float: left;
+  margin-left: -228px; /* -180px sidebar width - 48px (3rem) gap */
+  width: 180px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   
-  @media (max-width: 992px) {
-    display: none; /* Collapses into mobile/inline header */
+  @media (max-width: 1140px) {
+    display: none; /* Collapses into mobile/inline header under 1140px */
   }
   
   .back-link {
@@ -293,15 +290,40 @@ body {
   }
 }
 
-/* Main Content Styling */
+/* Main Content Styling (Centered) */
 .post-main {
-  flex-grow: 1;
+  width: 100%;
   max-width: 680px;
   min-width: 0; /* Prevents overflow */
   
   @media (max-width: 992px) {
-    max-width: 100%;
     padding: 0 1.5rem;
+  }
+}
+
+/* Mobile Back Link (Visible under 1140px) */
+.back-link-mobile {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  transition: color 0.15s ease;
+  
+  &:hover {
+    color: var(--accent-color);
+  }
+  
+  .back-icon {
+    width: 12px;
+    height: 12px;
+  }
+  
+  @media (max-width: 1140px) {
+    display: inline-flex;
   }
 }
 
