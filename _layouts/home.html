@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<div class="home-intro">
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+</div>
+
+<div class="posts-timeline">
+  {% assign postsByYear = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  {% for year in postsByYear %}
+    <div class="timeline-year-group">
+      <h2 class="timeline-year">{{ year.name }}</h2>
+      <ul class="timeline-posts">
+        {% for post in year.items %}
+          <li class="timeline-post-item">
+            <time class="timeline-post-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%m-%d" }}</time>
+            <a class="timeline-post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>

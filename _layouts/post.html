@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+      {% if page.author %}
+        <span class="meta-separator">·</span>
+        <span class="post-author">{{ page.author }}</span>
+      {% endif %}
+      {% if page.tags and page.tags.size > 0 %}
+        <span class="meta-separator">·</span>
+        <span class="post-tags">
+          {% for tag in page.tags %}
+            <span class="tag">#{{ tag }}</span>
+          {% endfor %}
+        </span>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  {% if page.comments_url %}
+    <footer class="post-footer">
+      <div class="post-comments-cta">
+        <p>本文基于 GitHub Issues 撰写。欢迎前往 <a href="{{ page.comments_url }}" target="_blank" rel="noopener noreferrer">GitHub Issue</a> 参与讨论或发表评论。</p>
+      </div>
+    </footer>
+  {% endif %}
+</article>

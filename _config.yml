@@ -10,25 +10,8 @@ url: "https://ninehills.tech"
 # ── Permalink ──
 permalink: /:year/:month/:day/:slug/
 
-# ── Theme ──
-remote_theme: jeffreytse/jekyll-theme-yat
-
-# ── YAT Theme Settings ──
-yat:
-  date_format: "%Y-%m-%d"
-  lang: "zh-CN"
-  night_mode: "auto"
-  header_transparent: false
-
-# ── YAT Homepage defaults ──
-defaults:
-  home:
-    heading: "九原山"
-    subheading: "技术笔记与思考"
-
 # ── Plugins ──
 plugins:
-  - jekyll-remote-theme
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
@@ -47,3 +30,12 @@ exclude:
   - README.md
   - Gemfile.lock
   - vendor/
+
+# ── Jekyll Spaceship Configuration ──
+jekyll-spaceship:
+  mathjax-processor:
+    src:
+      - "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"
+  mermaid-processor:
+    src:
+      - "https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"

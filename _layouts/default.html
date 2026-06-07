@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }} - RSS Feed" href="{{ '/feed.xml' | relative_url }}">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-container">
+      <a href="{{ '/' | relative_url }}" class="site-title">{{ site.title }}</a>
+      <nav class="nav">
+        <a href="{{ '/' | relative_url }}">文章</a>
+        <a href="https://github.com/ninehills" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-container">
+      <p class="footer-desc">{{ site.description }}</p>
+      <p class="footer-meta">
+        <span>© {{ 'now' | date: '%Y' }} {{ site.author }}</span>
+        <span class="divider">·</span>
+        <a href="{{ '/feed.xml' | relative_url }}">RSS 订阅</a>
+        <span class="divider">·</span>
+        <a href="https://github.com/ninehills/blog" target="_blank" rel="noopener noreferrer">源码</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
