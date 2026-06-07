@@ -201,25 +201,26 @@ body {
   }
 }
 
-/* Post Layout Container (Perfected Centered Area) */
+/* Post Layout Container (3-Column Grid for Perfect Centering) */
 .post-layout-container {
-  max-width: 680px;
+  display: grid;
+  grid-template-columns: 180px 1fr 180px;
+  gap: 3.5rem;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  position: relative;
   
-  @media (max-width: 992px) {
+  @media (max-width: 1140px) {
+    grid-template-columns: 1fr;
+    gap: 0;
     padding: 0;
   }
 }
 
-/* Sidebar Styling (Sticky in the left margin area using negative float) */
+/* Sidebar Styling (Sticky in the left grid cell) */
 .post-sidebar {
   position: sticky;
   top: 7rem;
-  float: left;
-  margin-left: -228px; /* -180px sidebar width - 48px (3rem) gap */
-  width: 180px;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -295,9 +296,19 @@ body {
   width: 100%;
   max-width: 680px;
   min-width: 0; /* Prevents overflow */
+  margin: 0 auto;
   
   @media (max-width: 992px) {
     padding: 0 1.5rem;
+  }
+}
+
+/* Right Spacer (Matches sidebar width to balance grid centering) */
+.post-right-spacer {
+  width: 180px;
+  
+  @media (max-width: 1140px) {
+    display: none;
   }
 }
 
