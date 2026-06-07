@@ -1,36 +1,88 @@
 ---
 layout: default
 ---
+{%- assign url_segments = page.url | split: '/' -%}
+{%- assign relative_depth = url_segments.size | minus: 1 -%}
+{%- assign relative_prefix = "" -%}
+{%- if relative_depth > 0 -%}
+  {%- for i in (1..relative_depth) -%}
+    {%- assign relative_prefix = relative_prefix | append: "../" -%}
+  {%- endfor -%}
+{%- endif -%}
 
-<article class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title | escape }}</h1>
-    <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+<div class="post-layout-container">
+  <!-- Sidebar -->
+  <aside class="post-sidebar">
+    <a href="{{ relative_prefix }}" class="back-link">
+      <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>所有文章</span>
+    </a>
+    
+    <div class="sidebar-meta-section">
+      <div class="meta-item">
+        <span class="meta-label">发布于</span>
+        <time class="meta-value" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y年%m月%d日" }}</time>
+      </div>
+      
       {% if page.author %}
-        <span class="meta-separator">·</span>
-        <span class="post-author">{{ page.author }}</span>
+        <div class="meta-item">
+          <span class="meta-label">作者</span>
+          <span class="meta-value">{{ page.author }}</span>
+        </div>
       {% endif %}
+      
       {% if page.tags and page.tags.size > 0 %}
-        <span class="meta-separator">·</span>
-        <span class="post-tags">
-          {% for tag in page.tags %}
-            <span class="tag">#{{ tag }}</span>
-          {% endfor %}
-        </span>
+        <div class="meta-item">
+          <span class="meta-label">标签</span>
+          <div class="meta-value tags-list">
+            {% for tag in page.tags %}
+              <span class="sidebar-tag">#{{ tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
       {% endif %}
     </div>
-  </header>
+  </aside>
 
-  <div class="post-content">
-    {{ content }}
-  </div>
-
-  {% if page.comments_url %}
-    <footer class="post-footer">
-      <div class="post-comments-cta">
-        <p>本文基于 GitHub Issues 撰写。欢迎前往 <a href="{{ page.comments_url }}" target="_blank" rel="noopener noreferrer">GitHub Issue</a> 参与讨论或发表评论。</p>
+  <!-- Main Content Column -->
+  <article class="post-main">
+    <header class="post-header-inline">
+      <h1 class="post-title">{{ page.title | escape }}</h1>
+      {% if page.description %}
+        <p class="post-description">{{ page.description | escape }}</p>
+      {% endif %}
+      
+      <!-- Mobile Metadata (visible only on mobile/tablet) -->
+      <div class="post-meta-mobile">
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
+        {% if page.author %}
+          <span class="meta-separator">·</span>
+          <span>{{ page.author }}</span>
+        {% endif %}
+        {% if page.tags and page.tags.size > 0 %}
+          <span class="meta-separator">·</span>
+          <span class="mobile-tags">
+            {% for tag in page.tags %}
+              <span class="mobile-tag">#{{ tag }}</span>
+            {% endfor %}
+          </span>
+        {% endif %}
       </div>
-    </footer>
-  {% endif %}
-</article>
+    </header>
+
+    <div class="post-content">
+      {{ content }}
+    </div>
+
+    {% if page.comments_url %}
+      <footer class="post-footer">
+        <div class="post-comments-cta">
+          <p>本文基于 GitHub Issues 撰写。欢迎前往 <a href="{{ page.comments_url }}" target="_blank" rel="noopener noreferrer">GitHub Issue</a> 参与讨论或发表评论。</p>
+        </div>
+      </footer>
+    {% endif %}
+  </article>
+</div>
